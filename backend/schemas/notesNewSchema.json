@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "workOrder": {
+      "type": "number"
+    },
+    "testDate": {
+      "type": "string"
+    },
+    "analyst": {
+      "type": "string"
+    },
+    "procedure": {
+      "type": "string"
+    },
+    "releaseDate": {
+      "type": "string"
+    },
+    "results": {
+      "type": "string"
+    },
+    "reviewed": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "workOrder",
+    "testDate",
+    "analyst",
+    "procedure",
+    "releaseDate",
+    "results",
+    "reviewed"
+  ]
+}

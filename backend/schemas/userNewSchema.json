@@ -1,0 +1,33 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Generated schema for Root",
+    "type": "object",
+    "properties": {
+      "username": {
+        "type": "string"
+      },
+      "first_name": {
+        "type": "string"
+      },
+      "last_name": {
+        "type": "string"
+      },
+      "password": {
+        "type": "string"
+      },
+      "email": {
+        "type": "string"
+      },
+      "is_admin": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "username",
+      "first_name",
+      "last_name",
+      "password",
+      "email",
+      "is_admin"
+    ]
+  }

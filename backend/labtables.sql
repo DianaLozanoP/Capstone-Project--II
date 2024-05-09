@@ -2,10 +2,13 @@
 -- Table for users
 
 CREATE TABLE users (
-    user_id SERIAL PRIMARY KEY, 
-    username VARCHAR(50) UNIQUE NOT NULL, 
-    email VARCHAR(100) UNIQUE NOT NULL, 
-    password TEXT NOT NULL
+    username VARCHAR(25) PRIMARY KEY, 
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    password TEXT NOT NULL,
+    email TEXT NOT NULL
+    CHECK (position('@' IN email) > 1),
+    is_admin BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE clients (
@@ -38,6 +41,7 @@ CREATE TABLE validations (
     val_id SERIAL PRIMARY KEY,
     client_id INTEGER REFERENCES clients(client_id), 
     work_order INTEGER REFERENCES samples(work_order),
+    description_ TEXT NOT NULL,
     method_id INTEGER REFERENCES genmethods (method_id),
     chapter_id INTEGER REFERENCES chapters (chapter_id),
     val_date DATE, 
@@ -48,11 +52,11 @@ CREATE TABLE validations (
 CREATE TABLE notes (
     work_order INTEGER REFERENCES samples (work_order), 
     test_date DATE NOT NULL, 
-    analyst INTEGER REFERENCES users(user_id),
+    analyst VARCHAR(25) REFERENCES users(username),
     procedure_ TEXT NOT NULL, 
     release_date  DATE NOT NULL, 
     results TEXT NOT NULL, 
-    reviewed INTEGER REFERENCES users(user_id)
+    reviewed VARCHAR(25) REFERENCES users(username)
 );
 
 CREATE TABLE media (
@@ -60,7 +64,7 @@ CREATE TABLE media (
     daycode TEXT NOT NULL, 
     media_name TEXT NOT NULL, 
     exp TEXT NOT NULL, 
-    reviewed TEXT 
+    reviewed VARCHAR(25) REFERENCES users(username)
 );
 
 CREATE TABLE equipment (

@@ -3,10 +3,30 @@
 /** Express app for jobly. */
 
 const express = require("express");
+const cors = require("cors");
 
 const { NotFoundError } = require("./expressError");
 
+const { authenticateJWT } = require("./middleware/auth");
+const authRoutes = require("./routes/auth");
+const notesRoutes = require("./routes/rnotes")
+const clientsRoutes = require("./routes/rclients")
+const samplesRoutes = require("./routes/rsamples")
+const validationsRoutes = require("./routes/rvalidations")
+const usersRoutes = require("./routes/rusers")
+
 const app = express();
+
+app.use(cors());
+app.use(express.json());
+app.use(authenticateJWT);
+
+app.use("/auth", authRoutes);
+app.use("/notes", notesRoutes);
+app.use("/clients", clientsRoutes);
+app.use("/samples", samplesRoutes);
+app.use("/validations", validationsRoutes);
+app.use("/users", usersRoutes);
 
 /** Handle 404 errors -- this matches everything */
 app.use(function (req, res, next) {

@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "analsyt": {
+      "type": "number"
+    },
+    "procedure": {
+      "type": "string"
+    },
+    "releaseDate": {
+      "type": "string"
+    },
+    "results": {
+      "type": "string"
+    },
+    "reviewed": {
+      "type": "number"
+    }
+  }
+}

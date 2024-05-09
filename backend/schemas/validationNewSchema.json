@@ -1,0 +1,37 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Generated schema for Root",
+    "type": "object",
+    "properties": {
+      "clientId": {
+        "type": "number"
+      },
+      "workOrder": {
+        "type": "number"
+      },
+      "description": {
+        "type": "string"
+      },
+      "methodId": {
+        "type": "number"
+      },
+      "chapterId": {
+        "type": "number"
+      },
+      "valDate": {
+        "type": "string"
+      },
+      "valMethod": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "clientId",
+      "workOrder",
+      "description",
+      "methodId",
+      "chapterId",
+      "valDate",
+      "valMethod"
+    ]
+  }
