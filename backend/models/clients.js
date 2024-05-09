@@ -16,7 +16,7 @@ class Client {
         const dupCheck = await db.query(`
          SELECT client_id 
          FROM clients
-         WHERE clientName =$1`,
+         WHERE client_name =$1`,
             [clientName],
         );
         if (dupCheck.rows[0]) {
@@ -29,7 +29,7 @@ class Client {
                 email, 
                 contact_info)
                 VALUES ($1, $2, $3)
-                RETURNING client_id,
+                RETURNING client_id AS "clientId",
                  client_name AS "clientName", 
                  email, 
                  contact_info AS "contactInfo"`,
@@ -97,7 +97,7 @@ class Client {
                                 contact_info AS "contactInfo"`;
 
         const result = await db.query(querySql, [...values, client_id]);
-        const client = client.rows[0]
+        const client = result.rows[0]
 
         if (!client) throw new NotFoundError(`Client not found.`)
 
