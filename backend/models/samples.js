@@ -40,15 +40,22 @@ class Sample {
 
     //Get sample based on its work order number
 
-    static async get(work_order) {
+    static async get(workOrder) {
         //find sample by work_order 
         const result = await db.query(`
-            SELECT * FROM samples
-            WHERE work_order=$1`, [work_order]);
+            SELECT 
+            work_order AS "workOrder",
+            client_id AS "clientId",
+            description_ AS "description",
+            storage, 
+            method_id AS "methodId",
+            chapter_id AS "chapterId"
+            FROM samples
+            WHERE work_order=$1`, [workOrder]);
 
         const sample = result.rows[0]
 
-        if (!sample) throw new NotFoundError(`Sample with work order number ${work_order} was not found.`)
+        if (!sample) throw new NotFoundError(`Sample with work order number ${workOrder} was not found.`)
 
         return sample;
     }
@@ -57,12 +64,13 @@ class Sample {
     //Possible filters include: description, clientId
     static async getBy(searchFilters = {}) {
         //create initial query
-        let query = `SELECT val_id,
+        let query = `SELECT 
                     client_id AS "clientId",
                     work_order AS "workOrder",
                     description_ AS "description",
                     method_id AS "methodId",
-                    chapter_id AS "chapterId"
+                    chapter_id AS "chapterId", 
+                    storage
                     FROM samples`;
         //create an array for the WHERE conditions to include in query
         let whereExpressions = [];
@@ -81,12 +89,12 @@ class Sample {
             whereExpressions.push(`description_ ILIKE $${queryValues.length}`);
         }
         if (whereExpressions.length > 0) {
-            query += "WHERE" + whereExpressions.join(" AND ");
+            query += " WHERE " + whereExpressions.join(" AND ");
         }
         //Finalize query and return results 
         query += " ORDER BY description_"
-        const validationsRes = await db.query(query, queryValues);
-        return validationsRes.rows;
+        const samplesRes = await db.query(query, queryValues);
+        return samplesRes.rows;
 
     }
 

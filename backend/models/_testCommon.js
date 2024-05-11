@@ -9,6 +9,7 @@ const testGenMethods = [];
 const testChapters = [];
 const testEquip = [];
 const testMedia = [];
+const testUsers = [];
 
 async function commonBeforeAll() {
     //DELETE WITHOUT WHERE
@@ -24,7 +25,7 @@ async function commonBeforeAll() {
     await db.query("DELETE FROM genmethods");
 
 
-    await db.query(`
+    const users = await db.query(`
     INSERT INTO users(username, 
                     first_name,
                     last_name,
@@ -39,15 +40,18 @@ async function commonBeforeAll() {
             await bcrypt.hash("password1", BCRYPT_WORK_FACTOR),
             await bcrypt.hash("password2", BCRYPT_WORK_FACTOR)
         ]);
+    testUsers.splice(0, 0, ...users.rows.map(r => r.username));
 
     const methods = await db.query(`INSERT INTO genmethods (m_name)
                     VALUES 
                     ('USP-NF 2024, Issue 1'), 
-                    ('EP 11.0')`);
+                    ('EP 11.0')
+                    RETURNING method_id`);
     testGenMethods.splice(0, 0, ...methods.rows.map(r => r.method_id));
 
     const chapters = await db.query(`INSERT INTO chapters (chapter)
-                    VALUES ('<71>'),('2.6.1')`);
+                    VALUES ('<71>'),('2.6.1')
+                    RETURNING chapter_id`);
     testChapters.splice(0, 0, ...chapters.rows.map(r => r.chapter_id));
 
     const resultClients = await db.query(`INSERT INTO clients 
@@ -129,5 +133,6 @@ module.exports = {
     testGenMethods,
     testChapters,
     testEquip,
-    testMedia
+    testMedia,
+    testUsers
 };

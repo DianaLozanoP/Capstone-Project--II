@@ -10,6 +10,15 @@ const {
 
 class Notes {
     static async create(data) {
+        const dupCheck = await db.query(`
+            SELECT work_order 
+            FROM notes
+            WHERE work_order =$1`,
+            [data.workOrder]);
+
+        if (dupCheck.rows[0]) {
+            throw new BadRequestError(`Duplicate notes: ${data.workOrder}`);
+        }
         const result = await db.query(
             `INSERT INTO notes (work_order,
                                 test_date,
@@ -67,18 +76,19 @@ class Notes {
         }
         if (analyst !== undefined) {
             queryValues.push(analyst);
-            whereExpressions.push(`analyst = $${queryValues.length}`);
+            whereExpressions.push(`analyst =$${queryValues.length}`);
         }
         if (releaseDate !== undefined) {
             queryValues.push(releaseDate);
-            whereExpressions.push(`releaseDate = $${queryValues.length}`);
+            whereExpressions.push(`releaseDate =$${queryValues.length}`);
         }
         if (whereExpressions.length > 0) {
-            query += "WHERE" + whereExpressions.join(" AND ");
+            query += " WHERE " + whereExpressions.join(" AND ");
         }
         //Finalize query and return results 
-        const validationsRes = await db.query(query, queryValues);
-        return validationsRes.rows;
+        console.log("NOTES QUERY", query)
+        const notes = await db.query(query, queryValues);
+        return notes.rows;
     }
 
     static async update(workOrder, data) {

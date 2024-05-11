@@ -50,7 +50,7 @@ CREATE TABLE validations (
 
 
 CREATE TABLE notes (
-    work_order INTEGER REFERENCES samples (work_order), 
+    work_order INTEGER PRIMARY KEY REFERENCES samples (work_order), 
     test_date DATE NOT NULL, 
     analyst VARCHAR(25) REFERENCES users(username),
     procedure_ TEXT NOT NULL, 

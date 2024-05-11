@@ -39,7 +39,7 @@ class Media {
                                     work_order)
                                     VALUES ($1, $2)
                                     RETURNING
-                                    media_id AS "equipId",
+                                    media_id AS "mediaId",
                                     work_order AS "workOrder"`,
             [mediaId, workOrder]);
 
@@ -62,12 +62,12 @@ class Media {
         //START QUERY
         const querySql = `UPDATE media
                           SET ${setCols}
-                          WHERE val_id =${mediaIdVarIdx}
+                          WHERE media_id =${mediaIdVarIdx}
                           RETURNING
                           daycode, 
                           media_name AS "mediaName",
                           exp, 
-                          reviewed"`;
+                          reviewed`;
 
         const result = await db.query(querySql, [...values, mediaId]);
         const media = result.rows[0];
