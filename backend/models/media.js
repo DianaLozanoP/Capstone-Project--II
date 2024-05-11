@@ -18,7 +18,7 @@ class Media {
                                         reviewed)
                                         VALUES ($1, $2, $3, $4)
                                         RETURNING
-                                        media_id,
+                                        media_id AS "mediaId",
                                         daycode, 
                                         media_name AS "mediaName",
                                         exp, 

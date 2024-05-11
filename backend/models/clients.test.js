@@ -29,6 +29,14 @@ describe("Client model", () => {
 
         const client = await Client.register(clientData);
 
+        expect(client).toEqual({
+            "clientId": client.clientId,
+            "clientName": "Test Client",
+            "contactInfo": "John Doe, +1234567890",
+            "email": "testclient@example.com",
+        });
+
+        //Check that the data is actually inside the database
         const result = await db.query(
             `SELECT 
             client_id,
@@ -38,12 +46,7 @@ describe("Client model", () => {
             FROM clients
             WHERE client_id= $1`, [client.clientId]);
 
-        expect(client).toEqual({
-            "clientId": client.clientId,
-            "clientName": "Test Client",
-            "contactInfo": "John Doe, +1234567890",
-            "email": "testclient@example.com",
-        });
+        expect(result.rows[0].client_name).toEqual("Test Client")
 
     });
 
@@ -79,6 +82,18 @@ describe("Find all clients", () => {
                 contactInfo: 'contactInfo3'
             }
         ])
+
+        //Check that the data is actually inside the database
+        const result = await db.query(
+            `SELECT 
+            client_id,
+            client_name, 
+            email, 
+            contact_info 
+            FROM clients
+            WHERE client_id= $1`, [testClientIds[0]]);
+
+        expect(result.rows[0].client_name).toEqual("Client1")
     });
 })
 

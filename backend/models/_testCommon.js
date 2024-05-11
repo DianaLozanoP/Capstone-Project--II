@@ -7,6 +7,8 @@ const testWorkOrders = [];
 const testClientIds = [];
 const testGenMethods = [];
 const testChapters = [];
+const testEquip = [];
+const testMedia = [];
 
 async function commonBeforeAll() {
     //DELETE WITHOUT WHERE
@@ -64,11 +66,12 @@ async function commonBeforeAll() {
         VALUES 
             ($1, 'Honey Healing Ointment 35g', 'Room Temperature', $2, $3),
             ($4, 'Magnesium 200 mg ultra strenght', 'Room Temperature', $5, $6)
-        RETURNING work_order,client_id, description_, storage,method_id, chapter_id`,
+        RETURNING work_order`,
         [testClientIds[0], testGenMethods[0], testChapters[0],
         testClientIds[1], testGenMethods[0], testChapters[1]]);
 
     testWorkOrders.splice(0, 0, ...resultSamples.rows.map(r => r.work_order));
+    console.log("THESE ARE THE TEST WORK ORDERS", testWorkOrders[0])
 
     await db.query(`
         INSERT INTO validations 
@@ -80,19 +83,27 @@ async function commonBeforeAll() {
         'Testing the models.')`,
         [testClientIds[0], testWorkOrders[0], testGenMethods[0], testChapters[0]]);
 
-    await db.query(`
+    const media = await db.query(`
         INSERT INTO media (daycode, media_name, exp, reviewed) 
         VALUES 
         ('1144', 'Tryptic Soy Broth', '2024-05-15', NULL),
-        ('1154', 'Fluid Thioglycollate Medium', '2024-05-16', NULL);`);
+        ('1154', 'Fluid Thioglycollate Medium', '2024-05-16', NULL)
+        RETURNING media_id AS "mediaId"`);
 
-    await db.query(`
-        INSERT INTO equipment (equip_name, cal_due)
-        VALUES
+    testMedia.splice(0, 0, ...media.rows.map(r => r.mediaId));
+
+    const equip = await db.query(`
+        INSERT INTO equipment
+        (equip_name,
+        cal_due)
+        VALUES 
         ('Incubator #1', '2025-01-30'),
-        ('Incubator #2', '2025-01-30'),
-        ('Vortex #1', NULL),
-        ('Stomacher', '2025-03-25')`);
+        ('Incubator #2', '2025-01-30')
+        RETURNING
+        equip_id AS "equipId"`);
+
+    testEquip.splice(0, 0, ...equip.rows.map(r => r.equipId));
+
 }
 
 async function commonBeforeEach() {
@@ -114,5 +125,9 @@ module.exports = {
     commonAfterEach,
     commonAfterAll,
     testClientIds,
-    testWorkOrders
+    testWorkOrders,
+    testGenMethods,
+    testChapters,
+    testEquip,
+    testMedia
 };

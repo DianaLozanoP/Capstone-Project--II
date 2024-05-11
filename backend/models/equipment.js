@@ -58,7 +58,7 @@ class Equipment {
         //START QUERY
         const querySql = `UPDATE equipment
                           SET ${setCols}
-                          WHERE val_id =${equipIdVarIdx}
+                          WHERE equip_id =${equipIdVarIdx}
                           RETURNING
                           equip_id AS "equipId", 
                           equip_name AS "equipName", 
