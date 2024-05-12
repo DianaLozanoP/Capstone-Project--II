@@ -115,7 +115,7 @@ describe("POST /validations", function () {
 
         const validation = await Validation.getBy({ description: "ALOE VERA LOTION" });
 
-        console.log(validation)
+
         // expect(resp.statusCode).toEqual(201);
         expect(resp.body).toEqual({
             validation: {

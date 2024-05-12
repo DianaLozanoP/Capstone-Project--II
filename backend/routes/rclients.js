@@ -8,7 +8,7 @@ const jsonschema = require("jsonschema");
 const express = require("express");
 const { BadRequestError } = require("../expressError");
 const Client = require("../models/clients");
-const clientNewSchema = require("../schemas/notesNewSchema.json");
+const clientNewSchema = require("../schemas/clientNewSchema.json");
 const updateClientSchema = require("../schemas/updateClientSchema.json");
 
 
@@ -46,7 +46,7 @@ router.post("/", async function (req, res, next) {
             throw new BadRequestError(errs);
         }
 
-        const client = await Client.create(req.body);
+        const client = await Client.register(req.body);
         return res.status(201).json({ client });
     } catch (err) {
         return next(err);

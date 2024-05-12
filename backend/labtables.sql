@@ -14,7 +14,8 @@ CREATE TABLE users (
 CREATE TABLE clients (
     client_id SERIAL PRIMARY KEY,
     client_name VARCHAR(100) UNIQUE NOT NULL, 
-    email VARCHAR(255) UNIQUE, 
+    email TEXT NOT NULL
+    CHECK (position('@' IN email) > 1), 
     contact_info TEXT
 );
 

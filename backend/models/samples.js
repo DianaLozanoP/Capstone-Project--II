@@ -95,6 +95,8 @@ class Sample {
         query += " ORDER BY description_"
 
         const samplesRes = await db.query(query, queryValues);
+        if (samplesRes.length === 0) throw new NotFoundError(`Sample was not found.`)
+
         return samplesRes.rows;
 
     }

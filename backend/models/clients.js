@@ -49,6 +49,7 @@ class Client {
     static async findAll() {
         const result = await db.query(
             `SELECT 
+                client_id AS "clientId",
                 client_name AS "clientName", 
                 email, 
                 contact_info AS "contactInfo"
@@ -65,15 +66,17 @@ class Client {
     static async findBy(clientName) {
         const result = await db.query(
             `SELECT 
+                client_id AS "clientId",
                 client_name AS "clientName", 
                 email, 
                 contact_info AS "contactInfo"
             FROM clients
             WHERE client_name ILIKE $1`,
-            [`%${clientName}%`],
-        );
+            [`%${clientName}%`]);
 
         const clients = result.rows
+        if (clients.length === 0) throw new NotFoundError(`Client was not found.`)
+
         return clients;
     }
 
@@ -91,7 +94,7 @@ class Client {
         const querySql = `UPDATE clients
                         SET ${setCols}
                         WHERE client_id = ${clientVarIdx}
-                        RETURNING client_id,
+                        RETURNING client_id AS "clientId",
                                 client_name AS "clientName", 
                                 email, 
                                 contact_info AS "contactInfo"`;

@@ -72,7 +72,6 @@ router.get("/:userName", async function (req, res, next) {
 router.patch("/:username", async function (req, res, next) {
     try {
         const validator = jsonschema.validate(req.body, userUpdateSchema);
-        console.log(req.body, userUpdateSchema)
         if (!validator.valid) {
             const errs = validator.errors.map(e => e.stack);
             throw new BadRequestError(errs);
