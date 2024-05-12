@@ -18,5 +18,7 @@
     "reviewed": {
       "type": "number"
     }
-  }
+  },
+  "additionalProperties": false,
+  "required": []
 }

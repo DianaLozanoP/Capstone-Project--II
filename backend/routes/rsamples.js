@@ -19,8 +19,8 @@ const router = express.Router();
 //Return all info about the sample
 router.get("/:workOrder", async function (req, res, next) {
     try {
-        const job = await Sample.get(req.params.workOrder);
-        return res.json({ job });
+        const sample = await Sample.get(req.params.workOrder);
+        return res.json({ sample });
     } catch (err) {
         return next(err);
     }
@@ -43,7 +43,9 @@ router.get("/", async function (req, res, next) {
             throw new BadRequestError(errs);
         }
 
+
         const samples = await Sample.getBy(q);
+
         return res.json({ samples });
 
     } catch (err) {

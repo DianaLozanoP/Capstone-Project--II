@@ -85,7 +85,7 @@ class Sample {
             whereExpressions.push(`client_id =$${queryValues.length}`);
         }
         if (description !== undefined) {
-            queryValues.push(description);
+            queryValues.push(`%${description}%`);
             whereExpressions.push(`description_ ILIKE $${queryValues.length}`);
         }
         if (whereExpressions.length > 0) {
@@ -93,6 +93,7 @@ class Sample {
         }
         //Finalize query and return results 
         query += " ORDER BY description_"
+
         const samplesRes = await db.query(query, queryValues);
         return samplesRes.rows;
 
@@ -105,19 +106,20 @@ class Sample {
             data,
             {
                 procedure: "procedure_",
+                description: "description_",
                 releaseDate: "release_date"
             });
 
         const workOrderVarIdx = "$" + (values.length + 1);
 
-        const querySql = `UPDATE notes
+        const querySql = `UPDATE samples
                           SET ${setCols}
                           WHERE work_order =${workOrderVarIdx}
                           RETURNING work_order AS "workOrder",
                                     client_id AS "clientId",
                                     description_ AS "description", 
                                     storage, 
-                                    mehtod_id AS "methodId",
+                                    method_id AS "methodId",
                                     chapter_id AS "chapterId"`;
         const result = await db.query(querySql, [...values, workOrder]);
         const sample = result.rows[0];

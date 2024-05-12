@@ -12,5 +12,7 @@
       "contactInfo": {
         "type": "string"
       }
-    }
+    },
+    "additionalProperties": false,
+    "required": []
   }

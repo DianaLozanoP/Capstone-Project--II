@@ -24,5 +24,7 @@
       "valMethod": {
         "type": "number"
       }
-    }
+    },
+    "additionalProperties": false,
+    "required": []
   }

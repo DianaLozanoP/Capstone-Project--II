@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 
 const db = require("../db.js");
 const { BCRYPT_WORK_FACTOR } = require("../config");
+const Notes = require("../models/notes.js");
 
 const testWorkOrders = [];
 const testClientIds = [];
@@ -13,8 +14,8 @@ const testUsers = [];
 
 async function commonBeforeAll() {
     //DELETE WITHOUT WHERE
-    await db.query("DELETE FROM users");
     await db.query("DELETE FROM notes");
+    await db.query("DELETE FROM users");
     await db.query("DELETE FROM media");
     await db.query("DELETE FROM equipment");
     await db.query("DELETE FROM media_used");
@@ -107,6 +108,16 @@ async function commonBeforeAll() {
         equip_id AS "equipId"`);
 
     testEquip.splice(0, 0, ...equip.rows.map(r => r.equipId));
+
+    const notes = await Notes.create({
+        "workOrder": testWorkOrders[0],
+        "testDate": "2024-05-30",
+        "analyst": testUsers[0],
+        "procedure": "THIS IS A TESTING PROCEDUREE",
+        "releaseDate": "2024-06-13",
+        "results": "No growth",
+        "reviewed": null
+    });
 
 }
 

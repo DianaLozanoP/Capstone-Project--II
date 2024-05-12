@@ -3,7 +3,7 @@
     "title": "Generated schema for Root",
     "type": "object",
     "properties": {
-      "client_id": {
+      "clientId": {
         "type": "number"
       },
       "description": {
@@ -20,7 +20,7 @@
       }
     },
     "required": [
-      "client_id",
+      "clientId",
       "description",
       "storage",
       "methodId",

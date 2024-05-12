@@ -15,5 +15,7 @@
       "releaseDate": {
         "type": "string"
       }
-    }
+    },
+    "additionalProperties": false,
+    "required": []
   }

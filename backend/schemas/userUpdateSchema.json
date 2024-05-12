@@ -21,5 +21,7 @@
       "is_admin": {
         "type": "boolean"
       }
-    }
+    },
+    "additionalProperties": false,
+    "required": []
   }

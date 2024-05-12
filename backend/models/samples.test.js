@@ -16,7 +16,8 @@ const {
     testMedia,
     testUsers
 } = require("./_testCommon");
-const { update } = require("./equipment.js");
+
+
 
 
 beforeAll(commonBeforeAll);

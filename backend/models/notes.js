@@ -80,13 +80,13 @@ class Notes {
         }
         if (releaseDate !== undefined) {
             queryValues.push(releaseDate);
-            whereExpressions.push(`releaseDate =$${queryValues.length}`);
+            whereExpressions.push(`release_date =$${queryValues.length}`);
         }
         if (whereExpressions.length > 0) {
             query += " WHERE " + whereExpressions.join(" AND ");
         }
         //Finalize query and return results 
-        console.log("NOTES QUERY", query)
+
         const notes = await db.query(query, queryValues);
         return notes.rows;
     }

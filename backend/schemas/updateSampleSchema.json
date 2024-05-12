@@ -3,7 +3,7 @@
     "title": "Generated schema for Root",
     "type": "object",
     "properties": {
-      "client_id": {
+      "clientId": {
         "type": "number"
       },
       "description": {
@@ -18,5 +18,7 @@
       "chapterId": {
         "type": "number"
       }
-    }
+    },
+    "additionalProperties": false,
+    "required": []
   }
