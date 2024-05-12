@@ -82,15 +82,19 @@ class User {
                 email,
                 is_admin)
                 VALUES ($1, $2, $3, $4, $5, $6)
-                RETURNING username, first_name AS "firstName", last_name AS "lastName", email, is_admin AS "isAdmin"`
+                RETURNING username, 
+                first_name AS "firstName", 
+                last_name AS "lastName", 
+                email, 
+                is_admin AS "isAdmin"`,
             [
-            username,
-            hashedPassword,
-            firstName,
-            lastName,
-            email,
-            isAdmin
-            ],
+                username,
+                hashedPassword,
+                firstName,
+                lastName,
+                email,
+                isAdmin
+            ]
         );
 
         const user = result.rows[0];
@@ -103,14 +107,15 @@ class User {
     **/
     static async get(username) {
         const findUser = await db.query(
-            `SELECT username
-            first_name AS "firstName,"
-            last_name AS "lastname",
+            `SELECT 
+            username,
+            first_name AS "firstName",
+            last_name AS "lastName",
             email, 
-            is_adming AS "isAdmin"
-        FROM users
-        WHERE username = $1`,
-            [username],
+            is_admin AS "isAdmin"
+            FROM users
+            WHERE username = $1`,
+            [username]
         );
 
         const user = findUser.rows[0];

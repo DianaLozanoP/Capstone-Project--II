@@ -11,7 +11,7 @@ const { BadRequestError } = require("../expressError");
 const Validation = require("../models/validations");
 const getValidationSchema = require("../schemas/getValidationSchema.json");
 const validationNewSchema = require("../schemas/validationNewSchema.json");
-const updateValidationSchema = require("../schemas/validationNewSchema.json");
+const updateValidationSchema = require("../schemas/updateValidationSchema.json");
 
 const router = express.Router();
 

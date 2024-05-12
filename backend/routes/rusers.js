@@ -11,7 +11,7 @@ const { BadRequestError } = require("../expressError");
 const User = require("../models/user");
 const { createToken } = require("../helpers/tokens");
 const userNewSchema = require("../schemas/userNewSchema.json");
-const userUpdateSchema = require("../schemas/userNewSchema.json");
+const userUpdateSchema = require("../schemas/userUpdateSchema.json");
 
 
 const router = express.Router();
@@ -72,6 +72,7 @@ router.get("/:userName", async function (req, res, next) {
 router.patch("/:username", async function (req, res, next) {
     try {
         const validator = jsonschema.validate(req.body, userUpdateSchema);
+        console.log(req.body, userUpdateSchema)
         if (!validator.valid) {
             const errs = validator.errors.map(e => e.stack);
             throw new BadRequestError(errs);

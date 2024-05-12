@@ -6,10 +6,10 @@
       "username": {
         "type": "string"
       },
-      "first_name": {
+      "firstName": {
         "type": "string"
       },
-      "last_name": {
+      "lastName": {
         "type": "string"
       },
       "password": {
@@ -18,7 +18,7 @@
       "email": {
         "type": "string"
       },
-      "is_admin": {
+      "isAdmin": {
         "type": "boolean"
       }
     },

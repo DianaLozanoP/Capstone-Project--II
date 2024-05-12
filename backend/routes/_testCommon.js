@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const db = require("../db.js");
 const { BCRYPT_WORK_FACTOR } = require("../config");
 const Notes = require("../models/notes.js");
+const { createToken } = require("../helpers/tokens");
 
 const testWorkOrders = [];
 const testClientIds = [];
@@ -121,6 +122,10 @@ async function commonBeforeAll() {
 
 }
 
+const u1Token = createToken({ username: "u1", isAdmin: false });
+const u2Token = createToken({ username: "u2", isAdmin: false });
+const adminToken = createToken({ username: "admin", isAdmin: true });
+
 async function commonBeforeEach() {
     await db.query("BEGIN");
 }
@@ -145,5 +150,8 @@ module.exports = {
     testChapters,
     testEquip,
     testMedia,
-    testUsers
+    testUsers,
+    u1Token,
+    u2Token,
+    adminToken
 };

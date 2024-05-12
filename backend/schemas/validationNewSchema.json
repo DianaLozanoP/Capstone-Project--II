@@ -22,7 +22,7 @@
         "type": "string"
       },
       "valMethod": {
-        "type": "number"
+        "type": "string"
       }
     },
     "required": [

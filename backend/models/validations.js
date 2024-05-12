@@ -22,10 +22,12 @@ class Validation {
                 chapter_id, 
                 val_date, 
                 val_method)
-                VALUES ($1, $2, $3, $4, $5, $6)
+                VALUES ($1, $2, $3, $4, $5, $6, $7)
                 RETURNING 
+                val_id AS "valId",
                 client_id AS "clientId", 
-                work_order AS "workOrder", 
+                work_order AS "workOrder",
+                description_ AS "description", 
                 method_id  AS "methodId", 
                 chapter_id AS "chapterId", 
                 val_date AS "valDate", 
@@ -43,21 +45,30 @@ class Validation {
     static async get(val_id) {
         //find sample by work_order 
         const result = await db.query(`
-            SELECT * FROM samples
-            WHERE work_order=$1`, [val_id]);
+            SELECT 
+            val_id AS "valId",
+            client_id AS "clientId", 
+            work_order AS "workOrder",
+            description_ AS "description", 
+            method_id  AS "methodId", 
+            chapter_id AS "chapterId", 
+            val_date AS "valDate", 
+            val_method AS "valMethod"
+            FROM validations
+            WHERE val_id=$1`, [val_id]);
 
-        const sample = result.rows[0]
+        const validation = result.rows[0]
 
-        if (!sample) throw new NotFoundError(`Sample with work order number ${work_order} was not found.`)
+        if (!validation) throw new NotFoundError(`Validation ${val_id} was not found.`)
 
-        return sample;
+        return validation;
     }
     //find a validation based on multiple optional filters such client name, product description
     //Returns {val_id, client_id, work_order,description_, method_id, chapter_id, val_date, val_method}
 
     static async getBy(searchFilters = {}) {
         //create initial query
-        let query = `SELECT val_id,
+        let query = `SELECT val_id AS "valId",
                             client_id AS "clientId",
                             work_order AS "workOrder",
                             description_ AS "description",
@@ -79,11 +90,11 @@ class Validation {
             whereExpressions.push(`client_id =$${queryValues.length}`);
         }
         if (description !== undefined) {
-            queryValues.push(description);
+            queryValues.push(`%${description}%`);
             whereExpressions.push(`description_ ILIKE $${queryValues.length}`);
         }
         if (whereExpressions.length > 0) {
-            query += "WHERE" + whereExpressions.join(" AND ");
+            query += " WHERE " + whereExpressions.join(" AND ");
         }
         //Finalize query and return results 
         query += " ORDER BY description_"
@@ -109,7 +120,7 @@ class Validation {
         const querySql = `UPDATE validations
                           SET ${setCols}
                           WHERE val_id =${valIdVarIdx}
-                          RETURNING val_id AS "valId"
+                          RETURNING val_id AS "valId",
                                     client_id AS "clientId",
                                     work_order AS "workOrder",
                                     description_ AS "description", 
@@ -120,7 +131,7 @@ class Validation {
         const result = await db.query(querySql, [...values, valId]);
         const validation = result.rows[0];
 
-        if (!validation) throw new NotFoundError(`No validations with ${workOrder} have been found.`);
+        if (!validation) throw new NotFoundError(`No validations with ${valId} have been found.`);
 
         return validation;
     }
