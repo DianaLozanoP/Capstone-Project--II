@@ -1,0 +1,95 @@
+.App {
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+/* App.css */
+/* App.css */
+.homepage {
+  text-align: center;
+  padding: 40px;
+}
+
+.home-center {
+  display: flex;
+  justify-content: space-between; /* Align items to the left and right */
+  align-items: center; /* Center items vertically */
+}
+
+.logo-container {
+  flex: 1; /* Allow logo to take up remaining space */
+  text-align: left; /* Align logo to the left */
+  padding-left: 2rem;
+}
+
+.content {
+  flex: 2; /* Allow content to take up more space */
+}
+
+.miniLogo{
+  width: 100px;
+  height: auto;
+}
+
+.checklist {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.checklist li {
+  position: relative;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+}
+
+.checklist li::before {
+  content: '✔';
+  color: navy;
+  /* position: absolute; */
+  /* left: 5px; */
+}
+
+.logo{
+  max-width: 500px;
+  max-height: 500px;
+}
+/* styles.css or App.css */
+.navbar-custom {
+  background-color: navy;
+}
+
+.navbar-custom .nav-link,
+.navbar-custom .navbar-brand {
+  color: white;
+}
+
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.div-small-container {
+  margin: 25px auto;
+  max-width: 600px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.sample{
+  margin: 5rem 10rem;
+}
+
+.samplesSearch{
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 2rem;
+}
