@@ -42,7 +42,10 @@ const Labnotes = () => {
             <h2>Laboratory Notes</h2>
             <br></br>
             {Object.keys(sample).length > 0 ?
-                <SampleBasics sample={sample} onClick={sampleClickNotes} />
+                <div>
+                    <h4>Click on the sample to start documenting the test.</h4>
+                    <SampleBasics sample={sample} onClick={sampleClickNotes} />
+                </div>
                 :
                 <div>
                     <h4>Select a sample to start testing.</h4>

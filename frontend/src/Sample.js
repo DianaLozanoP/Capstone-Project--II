@@ -24,7 +24,38 @@ const Sample = () => {
         }
         getSample();
         getNotes();
-    }, [])
+    }, []);
+
+    const createPDF = async (sample) => {
+        try {
+            const data = sample;
+            let response = await DoculabApi.PDFcreation({ data });
+
+            // Check if the response contains the expected PDF data
+            if (!(response.data instanceof ArrayBuffer)) {
+                throw new Error('Error: Response data is not an ArrayBuffer.');
+            }
+
+            // Create a Blob object from the PDF data
+            const pdfBlob = new Blob([response.data], { type: 'application/pdf' });
+
+            // Create a URL for the Blob and initiate the download
+            const url = window.URL.createObjectURL(pdfBlob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'generated_pdf.pdf';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+
+            // Revoke the object URL to free up resources
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error('Error generating PDF:', error);
+            // Handle the error (e.g., display a message to the user)
+        }
+    }
+
 
     return (
         <div className='sample'>
@@ -35,28 +66,32 @@ const Sample = () => {
                             width: '50rem'
                         }}>
                         <SampleBasics sample={sample} />
-                        {labNotes.testDate > 0 ?
+                        {labNotes.length > 0 ?
                             <div>
                                 <Card>
                                     <CardBody>
                                         <CardTitle tag="h5">
-                                            Release date: {labNotes.releaseDate}
+                                            Release date: {labNotes[0].releaseDate}
                                         </CardTitle>
                                         <CardSubtitle
                                             className="mb-2 text-muted"
                                             tag="h6"
                                         >
-                                            Tested on: {labNotes.testDate}
+                                            Tested on: {labNotes[0].testDate}
                                         </CardSubtitle>
                                         <CardText>
-                                            Analyst : {labNotes.analyst}
+                                            Analyst : {labNotes[0].analyst}
                                             <br></br>
-                                            Procedure: {labNotes.procedure}
-                                            Results: {labNotes.results}
-                                            Reviewed by: {labNotes.reviewed ? labNotes.reviewed : "Not reviewed yet."}
+                                            Procedure: {labNotes[0].procedure}
+                                            <br></br>
+                                            Results: {labNotes[0].results}
+                                            <br></br>
+                                            Reviewed by: {labNotes[0].reviewed ? labNotes[0].reviewed : "Not reviewed yet."}
                                         </CardText>
                                     </CardBody>
                                 </Card>
+                                <br></br>
+                                <Button onClick={() => createPDF(sample)} color="success">Create final report</Button>
                             </div>
                             :
                             <div>
@@ -67,7 +102,7 @@ const Sample = () => {
                                         </CardTitle>
                                         <CardText>
                                             <Button color="success"
-                                                href={`/labnotes/${workOrder}`}>
+                                                href={`/ labnotes / ${workOrder} `}>
                                                 Enter testing notes
                                             </Button>
                                         </CardText>

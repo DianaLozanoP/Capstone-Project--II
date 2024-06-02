@@ -22,13 +22,17 @@ VALUES
     ('Botanical Pharmaceuticals', 'jackson@botanical.ca', 'Jackson Davis, Quality Assurance, +1 (647) 987-3321'),
     ('Vitamins Lab Inc', 'andrea@vitlab.ca', 'Andrea Evans Director of Quality Assurance, Mitchell Brown Quality Assurance Associate'),
     ('Biohacking Inc', 'rmejia@biohacking.com', 'Ryan Mejia'), 
-    ('Another Bayern Company Inc', 'elee@bayern.com', 'Edwards Lee');
+    ('Another Bayern Company Inc', 'elee@bayern.com', 'Edwards Lee'),
+    ('Natural beauty', 'lizthompson@naturalbeauty.com', 'Liz Thompson' ),
+    ('Bioremedies Limited', 'vpatel@bioremedies.com', 'Vikrant Patel');
 
 INSERT INTO samples (client_id, description_, storage,method_id, chapter_id)
 VALUES 
     (1, 'Honey Healing Ointment 35g', 'Room Temperature', 1, 4),
     (2, 'Magnesium 200 mg ultra strenght', 'Room Temperature', 1, 4),
-    (3, 'Laparoscopic Grasping Forceps', 'Room Temperature', 1, 4);
+    (3, 'Laparoscopic Grasping Forceps', 'Room Temperature', 1, 4), 
+    (4, 'Amylase (enzyme concetrated serum)', 'minimum -20 degrees',1, 4 ),
+    (5, 'Night Lotion with hyaluronic acid', 'Room Temperature', 1, 1);
 
 INSERT INTO validations (client_id, work_order, description_ ,method_id,chapter_id,val_date, val_method )
 VALUES 
@@ -39,7 +43,10 @@ VALUES
 INSERT INTO media (daycode, media_name, exp, reviewed) 
 VALUES 
     ('1144', 'Tryptic Soy Broth', '2024-05-15', NULL),
-    ('1154', 'Fluid Thioglycollate Medium', '2024-05-16', NULL);
+    ('1154', 'Fluid Thioglycollate Medium', '2024-05-16', NULL),
+    ('1504', 'Tryptic Soy Agar', '2024-05-31', NULL),
+    ('1514', 'Sabouraud Dextrose Agar', '2024-06-01', NULL), 
+    ('1434','Tryptic Soy Agar', '2024-05-31', NULL );
 
 INSERT INTO equipment (equip_name, cal_due)
 VALUES
@@ -56,4 +63,6 @@ INSERT INTO users(username,
                 is_admin)
 VALUES 
 ('AL', 'Andrea', 'Lopez', 'abc123456', 'andrea@testing.com', FALSE),
-('PT', 'Peter', 'Thompson', 'abc123456', 'peter@testing.com', FALSE)
+('PT', 'Peter', 'Thompson', 'abc123456', 'peter@testing.com', FALSE),
+('OS', 'Oliver', 'Sanders', 'abc123456', 'oliver@testing.com', FALSE), 
+('DL', 'Diana', 'Lozano', 'abc132465', 'diana@testing.com', FALSE);

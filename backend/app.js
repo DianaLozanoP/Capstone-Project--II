@@ -14,6 +14,11 @@ const clientsRoutes = require("./routes/rclients")
 const samplesRoutes = require("./routes/rsamples")
 const validationsRoutes = require("./routes/rvalidations")
 const usersRoutes = require("./routes/rusers")
+const methodsRoutes = require("./routes/rmethods")
+const chaptersRoutes = require("./routes/rchapters")
+const equipmentRoutes = require("./routes/requipment")
+const mediaRoutes = require("./routes/rmedia")
+const PDFRoutes = require("./routes/rgeneratePDF")
 
 const app = express();
 
@@ -27,6 +32,11 @@ app.use("/clients", clientsRoutes);
 app.use("/samples", samplesRoutes);
 app.use("/validations", validationsRoutes);
 app.use("/users", usersRoutes);
+app.use("/methods", methodsRoutes);
+app.use("/chapters", chaptersRoutes);
+app.use("/equipment", equipmentRoutes);
+app.use("/media", mediaRoutes);
+app.use("/generate_pdf", PDFRoutes);
 
 /** Handle 404 errors -- this matches everything */
 app.use(function (req, res, next) {

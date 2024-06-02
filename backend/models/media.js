@@ -10,6 +10,18 @@ const {
 } = require("../expressError.js");
 
 class Media {
+    static async getAll() {
+        const mediaRes = await db.query(
+            `SELECT  
+            media_id AS "mediaId",
+            daycode AS "daycode", 
+            media_name AS "mediaName", 
+            exp
+            FROM media;`);
+
+        return mediaRes.rows;
+    }
+
     static async add(data) {
         const result = await db.query(`INSERT INTO media
                                       (daycode, 

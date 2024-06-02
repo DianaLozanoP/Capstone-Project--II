@@ -88,6 +88,7 @@ class Notes {
         //Finalize query and return results 
 
         const notes = await db.query(query, queryValues);
+
         return notes.rows;
     }
 

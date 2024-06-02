@@ -56,12 +56,34 @@ router.get("/", async function (req, res, next) {
 
 router.post("/", async function (req, res, next) {
     try {
-        const validator = jsonschema.validate(req.body, notesNewSchema);
+        const { workOrder } = req.body;
+
+        // Convert string values to numbers using parseInt or Number()
+        const parsedworkOrder = parseInt(workOrder, 10);
+
+
+        // Check if conversion was successful
+        if (isNaN(parsedworkOrder)) {
+            throw new Error("Invalid data types for clientId, methodId, or chapterId.");
+        }
+
+        // Create a new object with the parsed values and other fields
+        const newData = {
+            workOrder: parsedworkOrder,
+            testDate: req.body.testDate,
+            analyst: req.body.analyst,
+            procedure: req.body.procedure,
+            releaseDate: req.body.releaseDate,
+            results: req.body.results,
+            reviewed: req.body.reviewed
+        };
+        const validator = jsonschema.validate(newData, notesNewSchema);
         if (!validator.valid) {
             const errs = validator.errors.map(e => e.stack);
             throw new BadRequestError(errs);
         }
-        const labnotes = await Notes.create(req.body);
+        console.log(newData)
+        const labnotes = await Notes.create(newData);
         return res.status(201).json({ labnotes })
     } catch (err) {
         return next(err);

@@ -124,7 +124,7 @@ class DoculabApi {
         const url = `${BASE_URL}notes`;
         try {
             const res = await axios.post(url, data);
-            return res.labnotes;
+            return res.data.labnotes;
         } catch (err) {
             console.error("Error entering labnotes:", err);
             throw err;
@@ -141,7 +141,7 @@ class DoculabApi {
         const url = `${BASE_URL}equipment`;
         try {
             const res = await axios.post(url, data);
-            return res.equipment;
+            return res.data.equipment;
         } catch (err) {
             console.error("Error registering equipment:", err);
             throw err;
@@ -158,7 +158,7 @@ class DoculabApi {
         const url = `${BASE_URL}media`;
         try {
             const res = await axios.post(url, data);
-            return res.media;
+            return res.data.media;
         } catch (err) {
             console.error("Error registering media:", err);
             throw err;
@@ -170,6 +170,20 @@ class DoculabApi {
     static async getAllUsers() {
         let res = await this.request(`users`)
         return res.users;
+    }
+
+    //PDF Route
+    static async PDFcreation(data) {
+        const url = `${BASE_URL}generate_pdf`;
+        try {
+            const res = await axios.post(url, data, {
+                responseType: 'arraybuffer' // Ensure response type is arraybuffer
+            });
+            return res;
+        } catch (err) {
+            console.error("Error generating PDF:", err);
+            throw err;
+        }
     }
 }
 

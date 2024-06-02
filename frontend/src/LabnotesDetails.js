@@ -11,7 +11,7 @@ const LabnotesDetails = () => {
     const workOrder = params.workOrder;
 
     const [sample, setSample] = useState({});
-    const [notes, setLabNotes] = useState({})
+    const [notes, setLabNotes] = useState({});
 
     useEffect(() => {
         const getSample = async () => {
@@ -27,7 +27,6 @@ const LabnotesDetails = () => {
     }, [])
 
     const sendNotes = async (notes) => {
-        console.log(notes)
         const notesObj = {
             workOrder: notes.workOrder,
             testDate: notes.testDate,
@@ -35,7 +34,7 @@ const LabnotesDetails = () => {
             procedure: notes.procedure,
             releaseDate: notes.releaseDate,
             results: notes.results,
-            reviewed: notes.results
+            reviewed: notes.reviewed
         }
         const equipObj = {
             equipId: notes.equipId,
@@ -48,6 +47,7 @@ const LabnotesDetails = () => {
         let labn = await DoculabApi.postNotes(notesObj);
         let equip = await DoculabApi.postEquipUsed(equipObj);
         let media = await DoculabApi.postMediaUsed(mediaObj);
+        console.log(labn, equip, media)
         if (labn, equip, media) {
             alert("Labnotes were entered succesfully.")
             navigate('/labnotes')

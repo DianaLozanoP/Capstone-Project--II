@@ -3,7 +3,7 @@
     "title": "Generated schema for Root",
     "type": "object",
     "properties": {
-      "workOrder": {
+      "clientId": {
         "type": "number"
       },
       "description": {

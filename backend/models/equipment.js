@@ -10,6 +10,18 @@ const {
 } = require("../expressError.js");
 
 class Equipment {
+
+    static async getAll() {
+        const equipRes = await db.query(
+            `SELECT  
+            equip_id AS "equipId",
+            equip_name AS "equipName", 
+            cal_due AS "calDue"
+            FROM equipment;`);
+
+        return equipRes.rows;
+    }
+
     static async add(data) {
         const result = await db.query(`INSERT INTO equipment
                                       (equip_name,

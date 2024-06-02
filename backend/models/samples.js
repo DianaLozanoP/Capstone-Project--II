@@ -37,21 +37,63 @@ class Sample {
 
         return sample;
     }
+    //GET ALL SAMPLES
+    static async findAll() {
+        const samplesRes = await db.query(
+            `SELECT  
+            s.client_id AS "clientId",
+            s.work_order AS "workOrder",
+            s.description_ AS "description",
+            s.method_id AS "methodId",
+            s.storage,
+            m.m_name AS "methodName",
+            s.chapter_id AS "chapterId",
+            c.client_name AS "clientName",
+            ch.chapter,
+            n.test_date AS "testDate",
+            n.release_date AS "releaseDate"
+            FROM 
+                samples s
+            LEFT JOIN 
+                clients c ON s.client_id = c.client_id
+            LEFT JOIN 
+                genmethods m ON s.method_id = m.method_id
+            LEFT JOIN 
+                chapters ch ON s.chapter_id = ch.chapter_id
+            LEFT JOIN 
+                notes n ON s.work_order = n.work_order;`);
+
+        return samplesRes.rows;
+    }
 
     //Get sample based on its work order number
 
     static async get(workOrder) {
         //find sample by work_order 
         const result = await db.query(`
-            SELECT 
-            work_order AS "workOrder",
-            client_id AS "clientId",
-            description_ AS "description",
-            storage, 
-            method_id AS "methodId",
-            chapter_id AS "chapterId"
-            FROM samples
-            WHERE work_order=$1`, [workOrder]);
+        SELECT 
+            s.client_id AS "clientId",
+            s.work_order AS "workOrder",
+            s.description_ AS "description",
+            s.method_id AS "methodId",
+            s.storage,
+            m.m_name AS "methodName",
+            s.chapter_id AS "chapterId",
+            c.client_name AS "clientName",
+            ch.chapter,
+            n.test_date AS "testDate",
+            n.release_date AS "releaseDate"
+            FROM 
+                samples s
+            LEFT JOIN 
+                clients c ON s.client_id = c.client_id
+            LEFT JOIN 
+                genmethods m ON s.method_id = m.method_id
+            LEFT JOIN 
+                chapters ch ON s.chapter_id = ch.chapter_id
+            LEFT JOIN 
+                notes n ON s.work_order = n.work_order
+        WHERE s.work_order=$1`, [workOrder]);
 
         const sample = result.rows[0]
 
@@ -65,13 +107,27 @@ class Sample {
     static async getBy(searchFilters = {}) {
         //create initial query
         let query = `SELECT 
-                    client_id AS "clientId",
-                    work_order AS "workOrder",
-                    description_ AS "description",
-                    method_id AS "methodId",
-                    chapter_id AS "chapterId", 
-                    storage
-                    FROM samples`;
+        s.client_id AS "clientId",
+        s.work_order AS "workOrder",
+        s.description_ AS "description",
+        s.method_id AS "methodId",
+        s.storage,
+        m.m_name AS "methodName",
+        s.chapter_id AS "chapterId",
+        c.client_name AS "clientName",
+        ch.chapter,
+        n.test_date AS "testDate",
+        n.release_date AS "releaseDate"
+        FROM 
+            samples s
+        LEFT JOIN 
+            clients c ON s.client_id = c.client_id
+        LEFT JOIN 
+            genmethods m ON s.method_id = m.method_id
+        LEFT JOIN 
+            chapters ch ON s.chapter_id = ch.chapter_id
+        LEFT JOIN 
+            notes n ON s.work_order = n.work_order`;
         //create an array for the WHERE conditions to include in query
         let whereExpressions = [];
         //create an array for the values that will be used to filter
@@ -82,11 +138,11 @@ class Sample {
         // we can generate the right SQL
         if (clientId !== undefined) {
             queryValues.push(clientId);
-            whereExpressions.push(`client_id =$${queryValues.length}`);
+            whereExpressions.push(`s.client_id =$${queryValues.length}`);
         }
         if (description !== undefined) {
             queryValues.push(`%${description}%`);
-            whereExpressions.push(`description_ ILIKE $${queryValues.length}`);
+            whereExpressions.push(`s.description_ ILIKE $${queryValues.length}`);
         }
         if (whereExpressions.length > 0) {
             query += " WHERE " + whereExpressions.join(" AND ");
