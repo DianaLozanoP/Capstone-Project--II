@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = `process.env.${REACT_APP_BASE_URL}/` || "http://localhost:3001/";
+const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001/";
+const BASE_URL1 = BASE_URL.endsWith("/") ? BASE_URL : `${BASE_URL}/`;
 
 /** API Class.
  *
@@ -16,7 +17,7 @@ class DoculabApi {
 
         //there are multiple ways to pass an authorization token, this is how you pass it in the header.
         //this has been provided to show you another way to pass the token. you are only expected to read this code for this project.
-        const url = `${BASE_URL}${endpoint}`;
+        const url = `${BASE_URL1}${endpoint}`;
         // const headers = { Authorization: `Bearer ${JoblyApi.token}` };
         const params = (method === "get")
             ? data
@@ -63,7 +64,7 @@ class DoculabApi {
     }
 
     static async postSample(data) {
-        const url = `${BASE_URL}samples`;
+        const url = `${BASE_URL1}samples`;
         try {
             const res = await axios.post(url, data);
             return res
@@ -121,7 +122,7 @@ class DoculabApi {
     };
 
     static async postNotes(data) {
-        const url = `${BASE_URL}notes`;
+        const url = `${BASE_URL1}notes`;
         try {
             const res = await axios.post(url, data);
             return res.data.labnotes;
@@ -138,7 +139,7 @@ class DoculabApi {
     }
 
     static async postEquipUsed(data) {
-        const url = `${BASE_URL}equipment`;
+        const url = `${BASE_URL1}equipment`;
         try {
             const res = await axios.post(url, data);
             return res.data.equipment;
@@ -155,7 +156,7 @@ class DoculabApi {
     }
 
     static async postMediaUsed(data) {
-        const url = `${BASE_URL}media`;
+        const url = `${BASE_URL1}media`;
         try {
             const res = await axios.post(url, data);
             return res.data.media;
@@ -174,7 +175,7 @@ class DoculabApi {
 
     //PDF Route
     static async PDFcreation(data) {
-        const url = `${BASE_URL}generate_pdf`;
+        const url = `${BASE_URL1}generate_pdf`;
         try {
             const res = await axios.post(url, data, {
                 responseType: 'arraybuffer' // Ensure response type is arraybuffer
