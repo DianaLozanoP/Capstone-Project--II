@@ -55,7 +55,13 @@ const Sample = () => {
             // Handle the error (e.g., display a message to the user)
         }
     }
-
+    const formatDate = (dateString) => {
+        if (!dateString) {
+            return "N/A"; // Or any other value you want to display for null dates
+        }
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString('en-US', options);
+    }
 
     return (
         <div className='sample'>
@@ -71,13 +77,13 @@ const Sample = () => {
                                 <Card>
                                     <CardBody>
                                         <CardTitle tag="h5">
-                                            Release date: {labNotes[0].releaseDate}
+                                            Release date: {formatDate(labNotes[0].releaseDate)}
                                         </CardTitle>
                                         <CardSubtitle
                                             className="mb-2 text-muted"
                                             tag="h6"
                                         >
-                                            Tested on: {labNotes[0].testDate}
+                                            Tested on: {formatDate(labNotes[0].testDate)}
                                         </CardSubtitle>
                                         <CardText>
                                             Analyst : {labNotes[0].analyst}
@@ -92,6 +98,7 @@ const Sample = () => {
                                 </Card>
                                 <br></br>
                                 <Button onClick={() => createPDF(sample)} color="success">Create final report</Button>
+                                <p>(The PDF final report is currently being developed with Amazon S3).</p>
                             </div>
                             :
                             <div>

@@ -19,14 +19,20 @@ const ClientPage = () => {
         getSamples();
 
     }, []);
+    const handleSampleClick = (workOrder) => {
+        navigate(`/samples/${workOrder}`)
+    };
+
 
     return (
         <div>
             {samples.length > 0 ?
                 <div>
-                    <h3>Samples submitted by client:</h3>
+                    <br></br>
+                    <h4>Samples submitted by: </h4>
+                    <h4>{samples[0].clientName}</h4>
                     {samples.map((s) =>
-                        <SampleBasics sample={s} />)}
+                        <SampleBasics sample={s} onClick={handleSampleClick} />)}
                 </div>
                 : <h4>There are no samples associated to this client.</h4>}
             <div className="footer">

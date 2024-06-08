@@ -13,7 +13,7 @@ const Clients = () => {
     const [clients, setClients] = useState([]);
     //search company after filling out form
     const searchByClient = async (search) => {
-        let clientsData = await DoculabApi.getSample(search)
+        let clientsData = await DoculabApi.getSamples(search)
         setClients(clientsData)
     };
 
