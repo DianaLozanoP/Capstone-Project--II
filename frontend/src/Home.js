@@ -2,6 +2,7 @@ import "./App.css";
 import { Link } from "react-router-dom";
 import logo from "./Logo.png";
 import { MDBFooter, MDBContainer, MDBRow, MDBCol, MDBIcon } from 'mdb-react-ui-kit';
+import labanalyst from "./Lab analyst.jpg"
 
 const Home = () => {
     return (
@@ -13,6 +14,7 @@ const Home = () => {
                 <div className="content">
                     {/* <h2 className="mb-4 fw-bold">Doculab</h2> */}
                     <h4>All your laboratory documentation in one place.</h4>
+
                     <ul className="checklist">
                         <li>Save all details about your products.</li>
                         <li>Save all the details about your reagents, media, and equipment.</li>

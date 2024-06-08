@@ -102,7 +102,7 @@ const Sample = () => {
                                         </CardTitle>
                                         <CardText>
                                             <Button color="success"
-                                                href={`/ labnotes / ${workOrder} `}>
+                                                href={`/labnotes/${workOrder}`}>
                                                 Enter testing notes
                                             </Button>
                                         </CardText>
