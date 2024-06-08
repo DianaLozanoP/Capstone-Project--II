@@ -7,7 +7,7 @@ const PDF = require("../models/PDF.js");
 router.post("/", async function (req, res, next) {
     try {
         // Extract data from request body
-        const data = req.body.data;
+        const { data } = req.body;
         console.log("Received PDF Data:", data);
 
         if (!data || !data.clientName || !data.description) {

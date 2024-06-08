@@ -2,7 +2,6 @@ import React from 'react';
 import { Row, Col, Card, CardTitle, CardText } from 'reactstrap';
 
 const Client = ({ clientId, clientName, email, contactInfo, handleClientClick }) => {
-    console.log(clientId, clientName)
     return (
         <div className="sample d-flex justify-content-center align-items-center" onClick={() => handleClientClick(clientId)}>
             <Row>

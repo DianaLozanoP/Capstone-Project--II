@@ -14,6 +14,7 @@ import Sample from "./Sample";
 import SearchSampleDes from "./Hooks/SearchSampleDes";
 import SearchClient from "./Hooks/SearchClient";
 import EnterSample from "./Hooks/EnterSample";
+import { MDBFooter, MDBContainer, MDBRow, MDBCol, MDBIcon } from 'mdb-react-ui-kit';
 
 const Samples = () => {
     const navigate = useNavigate();
@@ -40,6 +41,14 @@ const Samples = () => {
 
     const handleSampleClick = (workOrder) => {
         navigate(`/samples/${workOrder}`)
+    };
+
+    const formatDate = (dateString) => {
+        if (!dateString) {
+            return "N/A"; // Or any other value you want to display for null dates
+        }
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString('en-US', options);
     }
 
     return (
@@ -47,19 +56,19 @@ const Samples = () => {
             <div className="samples pt-5">
                 <div className="samplesSearch">
                     <Row>
-                        <Col sm="4">
-                            <Card body>
-                                <CardTitle tag="h5">
+                        <Col sm="5">
+                            <Card body style={{ fontSize: "14px" }}>
+                                <CardTitle tag="h5" style={{ fontSize: "14px" }}>
                                     Search a sample by description:
                                 </CardTitle>
-                                <CardText>
+                                <CardText >
                                     <SearchSampleDes searchSample={searchSample} />
                                 </CardText>
                             </Card>
                         </Col>
-                        <Col sm="4">
+                        <Col sm="5" style={{ fontSize: "14px" }}>
                             <Card body>
-                                <CardTitle tag="h5">
+                                <CardTitle tag="h5" style={{ fontSize: "14px" }}>
                                     Search a sample by client
                                 </CardTitle>
                                 <CardText>
@@ -67,9 +76,9 @@ const Samples = () => {
                                 </CardText>
                             </Card>
                         </Col>
-                        <Col sm="4">
+                        <Col sm="2" style={{ fontSize: "14px" }}>
                             <Card body>
-                                <CardTitle tag="h5">
+                                <CardTitle tag="h5" style={{ fontSize: "14px" }}>
                                     Add a new sample
                                 </CardTitle>
                                 <CardText>
@@ -87,7 +96,7 @@ const Samples = () => {
                     <div className="samplescards">
                         <TableContainer component={Paper}>
                             <Table sx={{ minWidth: 650, fontFamily: "Montserrat" }}>
-                                <TableHead>
+                                <TableHead sx={{ boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)" }}>
                                     <TableRow>
                                         <TableCell>Work Order</TableCell>
                                         <TableCell >Description</TableCell>
@@ -108,8 +117,9 @@ const Samples = () => {
                                             </TableCell>
                                             <TableCell >{s.description}</TableCell>
                                             <TableCell >{s.clientName}</TableCell>
-                                            <TableCell >{s.testDate}</TableCell>
-                                            <TableCell >{s.releasedate}</TableCell>
+                                            <TableCell>{formatDate(s.testDate)}</TableCell>
+                                            <TableCell>{formatDate(s.releaseDate)}</TableCell>
+
                                         </TableRow>
                                     ))}
                                 </TableBody>
@@ -120,6 +130,49 @@ const Samples = () => {
                     null
                 }
 
+            </div>
+            <div className="footer">
+                <MDBFooter bgColor='light' className='text-center text-lg-start text-muted'>
+                    <section className='d-flex justify-content-center p-4 border-bottom'>
+                        <div className='me-5'>
+                            <span>Get connected with Diana on social media:</span>
+                        </div>
+
+                        <div>
+                            <a href='https://www.linkedin.com/in/dianalozanop/' className='me-4 text-reset'>
+                                <i className="bi bi-linkedin"></i>
+                            </a>
+                            <a href='https://github.com/DianaLozanoP' className='me-4 text-reset'>
+                                <i className="bi bi-github"></i>
+                            </a>
+                            <a href='https://www.instagram.com/dianaaalozano/?hl=en' className='me-4 text-reset'>
+                                <i className="bi bi-instagram"></i>
+                            </a>
+                        </div>
+                    </section>
+
+                    <section className=''>
+                        <MDBContainer className='text-center mt-5'>
+                            <h6 className='text-uppercase fw-bold'>
+                                <MDBIcon icon="gem" className="me-3" />
+                                Doculab
+                            </h6>
+                            <p>
+                                Laboratory documentation system.
+                                Capstone Project for Springboard.
+                                <i class="bi bi-award-fill"></i>
+                            </p>
+
+                        </MDBContainer>
+                    </section>
+
+                    <div className='text-center p-4' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
+                        © 2021 Copyright:
+                        <a className='text-reset fw-bold' href='https://mdbootstrap.com/'>
+                            MDBootstrap.com
+                        </a>
+                    </div>
+                </MDBFooter>
             </div>
 
         </div >

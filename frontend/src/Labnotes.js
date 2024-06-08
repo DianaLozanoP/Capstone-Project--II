@@ -12,6 +12,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { MDBFooter, MDBContainer, MDBRow, MDBCol, MDBIcon } from 'mdb-react-ui-kit';
 
 
 const Labnotes = () => {
@@ -35,6 +36,13 @@ const Labnotes = () => {
 
     const sampleClickNotes = async (workOrder) => {
         navigate(`/labnotes/${workOrder}`)
+    }
+    const formatDate = (dateString) => {
+        if (!dateString) {
+            return "N/A"; // Or any other value you want to display for null dates
+        }
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString('en-US', options);
     }
 
     return (
@@ -73,9 +81,9 @@ const Labnotes = () => {
                                                 <TableCell component="th" scope="row">
                                                     {s.workOrder}
                                                 </TableCell>
-                                                <TableCell >{s.testDate}</TableCell>
+                                                <TableCell>{formatDate(s.testDate)}</TableCell>
                                                 <TableCell >{s.analyst}</TableCell>
-                                                <TableCell >{s.releaseDate}</TableCell>
+                                                <TableCell>{formatDate(s.releaseDate)}</TableCell>
                                                 <TableCell >{s.results}</TableCell>
                                                 <TableCell >{s.reviewed}</TableCell>
                                             </TableRow>
@@ -87,7 +95,49 @@ const Labnotes = () => {
                         : <h3>No labnotes have been documented yet.</h3>}
                 </div>
             }
+            <div className="footer">
+                <MDBFooter bgColor='light' className='text-center text-lg-start text-muted'>
+                    <section className='d-flex justify-content-center p-4 border-bottom'>
+                        <div className='me-5'>
+                            <span>Get connected with Diana on social media:</span>
+                        </div>
 
+                        <div>
+                            <a href='https://www.linkedin.com/in/dianalozanop/' className='me-4 text-reset'>
+                                <i className="bi bi-linkedin"></i>
+                            </a>
+                            <a href='https://github.com/DianaLozanoP' className='me-4 text-reset'>
+                                <i className="bi bi-github"></i>
+                            </a>
+                            <a href='https://www.instagram.com/dianaaalozano/?hl=en' className='me-4 text-reset'>
+                                <i className="bi bi-instagram"></i>
+                            </a>
+                        </div>
+                    </section>
+
+                    <section className=''>
+                        <MDBContainer className='text-center mt-5'>
+                            <h6 className='text-uppercase fw-bold'>
+                                <MDBIcon icon="gem" className="me-3" />
+                                Doculab
+                            </h6>
+                            <p>
+                                Laboratory documentation system.
+                                Capstone Project for Springboard.
+                                <i class="bi bi-award-fill"></i>
+                            </p>
+
+                        </MDBContainer>
+                    </section>
+
+                    <div className='text-center p-4' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
+                        © 2021 Copyright:
+                        <a className='text-reset fw-bold' href='https://mdbootstrap.com/'>
+                            MDBootstrap.com
+                        </a>
+                    </div>
+                </MDBFooter>
+            </div>
         </div >
     )
 }

@@ -12,6 +12,10 @@
   padding: 40px;
 }
 
+.footer{
+  margin-top: 10%;
+}
+
 .home-center {
   display: flex;
   justify-content: space-between; /* Align items to the left and right */
@@ -92,4 +96,8 @@
   margin-left: 1rem;
   margin-right: 1rem;
   margin-bottom: 2rem;
+}
+
+.samplescards{
+  margin: 20px 30px;
 }
