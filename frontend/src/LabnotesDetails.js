@@ -113,7 +113,7 @@ const LabnotesDetails = () => {
                             </h6>
                             <p>
                                 Laboratory documentation system.
-                                Capstone Project for Springboard.
+                                Capstone Project for <a className="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://www.springboard.com/">Springboard</a>
                                 <i class="bi bi-award-fill"></i>
                             </p>
 
@@ -121,10 +121,7 @@ const LabnotesDetails = () => {
                     </section>
 
                     <div className='text-center p-4' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
-                        © 2021 Copyright:
-                        <a className='text-reset fw-bold' href='https://mdbootstrap.com/'>
-                            MDBootstrap.com
-                        </a>
+                        © 2024 Copyright: Diana Lozano
                     </div>
                 </MDBFooter>
             </div>

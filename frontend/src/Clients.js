@@ -81,10 +81,9 @@ const Clients = () => {
                             </h6>
                             <p>
                                 Laboratory documentation system.
-                                Capstone Project for Springboard.
+                                Capstone Project for <a className="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://www.springboard.com/">Springboard</a>
                                 <i class="bi bi-award-fill"></i>
                             </p>
-
                         </MDBContainer>
                     </section>
 
