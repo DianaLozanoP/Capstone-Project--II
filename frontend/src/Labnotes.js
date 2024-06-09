@@ -92,7 +92,7 @@ const Labnotes = () => {
                                 </Table>
                             </TableContainer>
                         </div>
-                        : <h3>No labnotes have been documented yet.</h3>}
+                        : <h5>Please wait while labnotes are being retrieved.</h5>}
                 </div>
             }
             <div className="footer">

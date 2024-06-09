@@ -51,7 +51,7 @@ const Clients = () => {
                             />
                         ))}
                     </div>
-                    : null}
+                    : <h5>Please wait while clients data is being retrieved.</h5>}
             </div>
             <div className="footer">
                 <MDBFooter bgColor='light' className='text-center text-lg-start text-muted'>

@@ -127,7 +127,7 @@ const Samples = () => {
                         </TableContainer>
                     </div>
                     :
-                    null
+                    <h5>Please wait while samples data is being retrieved.</h5>
                 }
 
             </div>
