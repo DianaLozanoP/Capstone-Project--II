@@ -109,7 +109,13 @@ const Samples = () => {
                                     {samples.map((s) => (
                                         <TableRow
                                             key={s.workOrder}
-                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                            sx={{
+                                                '&:last-child td, &:last-child th': { border: 0 },
+                                                '&:hover': {
+                                                    backgroundColor: '#f5f5f5',
+                                                    cursor: 'pointer',
+                                                },
+                                            }}
                                             onClick={() => handleSampleClick(s.workOrder)}
                                         >
                                             <TableCell component="th" scope="row">
