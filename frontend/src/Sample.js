@@ -29,7 +29,14 @@ const Sample = () => {
     const createPDF = async (sample) => {
         try {
             const data = sample;
-            let response = await DoculabApi.PDFcreation({ data });
+            let response = await DoculabApi.PDFcreation({
+                data,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/pdf'
+                },
+                responseType: 'arraybuffer'
+            });
 
             // Check if the response contains the expected PDF data
             if (!(response.data instanceof ArrayBuffer)) {

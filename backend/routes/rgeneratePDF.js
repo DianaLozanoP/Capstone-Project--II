@@ -6,7 +6,6 @@ const PDF = require("../models/PDF.js");
 
 router.post("/", async function (req, res, next) {
     try {
-        // Extract data from request body
         const { data } = req.body;
         console.log("Received PDF Data:", data);
 
@@ -17,18 +16,13 @@ router.post("/", async function (req, res, next) {
         // Generate PDF buffer
         const pdfBuffer = await PDF.generatePDF(data);
 
-        // Send the PDF buffer as a response
-        res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', 'attachment; filename=generated_pdf.pdf');
-        res.send(pdfBuffer);
+        // Optionally, you might want to send a URL or key for the uploaded PDF
+        res.status(200).send('PDF uploaded successfully');
 
     } catch (error) {
-        console.error('Error generating PDF:', error);
-        res.status(500).send('Error generating PDF');
+        console.error('Error generating or uploading PDF:', error);
+        res.status(500).send('Error generating or uploading PDF');
     }
 });
 
 module.exports = router;
-
-
-

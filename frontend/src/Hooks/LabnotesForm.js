@@ -33,6 +33,7 @@ const LabnotesForm = ({ sendNotes, workOrder }) => {
 
         const getAnalyst = async () => {
             let analysts = await DoculabApi.getAllUsers();
+            console.log(analysts)
             setAnalyst(analysts)
         }
 
