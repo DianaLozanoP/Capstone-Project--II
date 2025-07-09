@@ -1,5 +1,3 @@
-"use strict";
-
 const { Client } = require("pg");
 
 let db;
@@ -7,19 +5,15 @@ let db;
 if (process.env.NODE_ENV === "production") {
     db = new Client({
         connectionString: process.env.DATABASE_URL,
-        ssl: {
-            rejectUnauthorized: false,
-        },
+        ssl: { rejectUnauthorized: false },
     });
 } else {
-    // Only required in dev
     const password = require("./password");
-
     db = new Client({
         user: "dianaloz",
         host: "/var/run/postgresql",
-        database: process.env.NODE_ENV === "test" ? "doculab_test" : "doculab",
-        password: password,
+        database: "doculab",
+        password,
         port: 5432,
     });
 }
@@ -27,6 +21,7 @@ if (process.env.NODE_ENV === "production") {
 db.connect();
 
 module.exports = db;
+
 
 // const { Client } = require("pg");
 // const connectionString = "postgres://yjphmgsv:Tap5iSfhwSFb5_qMb0GmJAMq5X7H90LN@bubble.db.elephantsql.com/yjphmgsv";
