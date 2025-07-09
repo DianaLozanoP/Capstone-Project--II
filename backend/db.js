@@ -1,26 +1,17 @@
 const { Client } = require("pg");
 
-let db;
 
-if (process.env.NODE_ENV === "production") {
-    db = new Client({
-        connectionString: process.env.DATABASE_URL,
-        ssl: { rejectUnauthorized: false },
-    });
-} else {
-    const password = require("./password");
-    db = new Client({
-        user: "dianaloz",
-        host: "/var/run/postgresql",
-        database: "doculab",
-        password,
-        port: 5432,
-    });
-}
+const connectionString = process.env.DATABASE_URL || "postgresql://dianaloz:yourpassword@localhost:5432/doculab";
+
+const db = new Client({
+    connectionString,
+    ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
+});
 
 db.connect();
 
 module.exports = db;
+
 
 
 // const { Client } = require("pg");
