@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3001/";
+const BASE_URL = "https://capstone-project-ii.onrender.com/";
+
 
 /** API Class.
  *
