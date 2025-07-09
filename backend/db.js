@@ -1,17 +1,6 @@
 "use strict";
 
 const { Client } = require("pg");
-// const password = require('./password')
-// const { getDatabaseUri } = require("./config");
-
-let database;
-if (process.env.NODE_ENV === "test") {
-    database = "doculab_test";
-} else {
-    database = "doculab";
-}
-
-
 
 let db;
 
@@ -23,13 +12,13 @@ if (process.env.NODE_ENV === "production") {
         },
     });
 } else {
-    // Load password only for local dev
+    // Only required in dev
     const password = require("./password");
 
     db = new Client({
         user: "dianaloz",
         host: "/var/run/postgresql",
-        database: "doculab",
+        database: process.env.NODE_ENV === "test" ? "doculab_test" : "doculab",
         password: password,
         port: 5432,
     });
