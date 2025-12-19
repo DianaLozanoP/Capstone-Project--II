@@ -22,7 +22,7 @@ I have created my own API on the backend. I have added some data for samples, me
 - Frontend: React.js
 - Backend: Node.js, Express.js
 - Database: PostgreSQL
-- Testing: Jes
-- Deployment: AWS, Render, ElephantSQL
+- Testing: Jest
+- Deployment: AWS, Render 
 
 
